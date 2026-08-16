@@ -1,12 +1,16 @@
 const axios = require("axios");
 
-const OLLAMA_URL = process.env.OLLAMA_URL || "http://localhost:11434";
-const OLLAMA_MODEL = process.env.OLLAMA_MODEL || "llama3.2";
+const OLLAMA_CLOUD_URL = "https://ollama.com/api/chat";
+const OLLAMA_MODEL = process.env.OLLAMA_MODEL || "gpt-oss:20b";
 
 const generateAIResponse = async (messages) => {
     try {
+        if (!process.env.OLLAMA_API_KEY) {
+            throw new Error("OLLAMA_API_KEY is not configured");
+        }
+
         const response = await axios.post(
-            `${OLLAMA_URL}/api/chat`,
+            OLLAMA_CLOUD_URL,
             {
                 model: OLLAMA_MODEL,
                 messages,
@@ -16,11 +20,21 @@ const generateAIResponse = async (messages) => {
                 }
             },
             {
+                headers: {
+                    Authorization: `Bearer ${process.env.OLLAMA_API_KEY}`,
+                    "Content-Type": "application/json"
+                },
                 timeout: 120000
             }
         );
 
-        return response.data?.message?.content?.trim() || "I couldn't generate a response.";
+        const content = response.data?.message?.content?.trim();
+
+        if (!content) {
+            throw new Error("Ollama returned an empty response");
+        }
+
+        return content;
     } catch (error) {
         console.error(
             "AI Service Error:",
@@ -28,7 +42,7 @@ const generateAIResponse = async (messages) => {
         );
 
         throw new Error(
-            "AI service is unavailable. Make sure Ollama is running with the configured model."
+            "AI service is unavailable. Please try again later."
         );
     }
 };
