@@ -1,0 +1,15 @@
+{
+  "name": "sigmagpt",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "install:backend": "npm install --prefix Backend",
+    "install:frontend": "npm install --prefix Frontend",
+    "build": "npm run install:backend && npm run install:frontend && npm run build:frontend",
+    "build:frontend": "npm run build --prefix Frontend",
+    "start": "npm start --prefix Backend"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
