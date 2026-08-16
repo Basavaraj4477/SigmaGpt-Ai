@@ -1,58 +1,150 @@
 # SigmaGPT
 
-## Run locally (manual browser opening)
+SigmaGPT is an AI-powered chat application built using React.js, Node.js, Express.js, MongoDB, Ollama and Llama 3.2.
 
-This project is configured as a monolithic React + Express application.
+It allows users to create multiple conversations and interact with an AI model through a simple and responsive chat interface.
 
-### 1. Build the frontend
+## Features
 
-From the project root:
+- User registration and login
+- JWT authentication
+- Create multiple chats
+- Multiple chat sessions
+- Chat history stored in MongoDB
+- AI-powered responses using Llama 3.2
+- Chat titles based on the first message
+- Delete chats
+- Responsive user interface
 
-```powershell
-npm run build
-```
+## Technologies Used
 
-### 2. Start the backend
+- React.js
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- Ollama
+- Llama 3.2
+- Axios
+- JWT
+- CSS
 
-From the project root:
+## Project Structure
 
-```powershell
-npm start
-```
+    SigmaGPT
+    │
+    ├── Backend
+    │   ├── config
+    │   ├── controllers
+    │   ├── middleware
+    │   ├── models
+    │   ├── routes
+    │   ├── services
+    │   ├── .env.example
+    │   └── server.js
+    │
+    ├── Frontend
+    │   ├── public
+    │   ├── src
+    │   └── package.json
+    │
+    ├── package.json
+    ├── render.yaml
+    └── README.md
 
-The terminal will show:
+## How to Run Locally
 
-```text
-SigmaGPT server running on http://localhost:5000
-Open the frontend manually in your browser: http://localhost:5000
-```
+### 1. Clone the Repository
 
-The browser is **not opened automatically**.
+    git clone YOUR_GITHUB_REPOSITORY_URL
+    cd SigmaGPT
 
-### 3. Open the application manually
+Replace `YOUR_GITHUB_REPOSITORY_URL` with the URL of this GitHub repository.
 
-Open Chrome/Edge yourself and enter:
+### 2. Install Dependencies
 
-```text
-http://localhost:5000
-```
+From the project root, run:
 
-### 4. Start Ollama separately
+    npm run build
 
-In another terminal:
+This installs the required dependencies and builds the React frontend.
 
-```powershell
-ollama run llama3.2
-```
+### 3. Configure Environment Variables
 
-Keep Ollama running while testing AI chat.
+Create a `.env` file inside the `Backend` folder.
 
-### Backend health check
+    PORT=5000
+    MONGO_URI=your_mongodb_connection_string
+    JWT_SECRET=your_jwt_secret
+    OLLAMA_URL=http://localhost:11434
+    OLLAMA_MODEL=llama3.2
 
-```text
-http://localhost:5000/api/health
-```
+Do not upload the `.env` file to GitHub.
+
+### 4. Start Ollama
+
+Make sure Ollama is installed and run:
+
+    ollama run llama3.2
+
+Keep Ollama running while using the AI chat.
+
+### 5. Start SigmaGPT
+
+From the project root, run:
+
+    npm start
+
+The application will run on:
+
+    http://localhost:5000
+
+Open the URL manually in your browser.
+
+The browser will not open automatically.
+
+## Backend Health Check
+
+To check whether the backend is running, open:
+
+    http://localhost:5000/api/health
+
+## Database
+
+SigmaGPT uses MongoDB to store:
+
+- User accounts
+- Chat sessions
+- Chat messages
+
+The MongoDB connection string is stored in the `MONGO_URI` environment variable.
+
+## AI
+
+SigmaGPT currently uses Ollama with the Llama 3.2 model.
+
+The backend sends the conversation messages to Ollama and returns the generated response to the frontend.
 
 ## Deployment
 
-The application is structured for a single Render Web Service. Do not commit `.env` or secrets to GitHub.
+The project is structured as a monolithic application where the Express backend serves the React frontend.
+
+The application can be deployed as a single web service.
+
+Environment variables should be added to the deployment platform and should not be committed to GitHub.
+
+## Future Improvements
+
+- AI response streaming
+- Markdown support
+- Code syntax highlighting
+- Chat search
+- More AI model options
+- Improved UI
+- Production AI hosting
+
+## Author
+
+Basavaraj
+
+B.Tech Computer Science and Engineering
