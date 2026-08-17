@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API = "/api";
 
 function Login() {
     const navigate = useNavigate();
@@ -35,6 +35,8 @@ function Login() {
 
             navigate("/chat");
         } catch (err) {
+            console.error("Login error:", err);
+
             setError(
                 err.response?.data?.message ||
                 "Login failed. Please try again."
