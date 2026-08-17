@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API = "/api";
 
 function Register() {
     const navigate = useNavigate();
@@ -37,6 +37,8 @@ function Register() {
 
             navigate("/chat");
         } catch (err) {
+            console.error("Registration error:", err);
+
             setError(
                 err.response?.data?.message ||
                 "Registration failed. Please try again."
